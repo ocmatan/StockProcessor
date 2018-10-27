@@ -18,7 +18,8 @@ public class QuoteRepository {
     }
 
     public void saveQuote(Quote quote){
-        StockData stockData = data.get(quote.getStockName());
+        System.out.println("Saving quote in repository: " + quote.getSymbol() + ", with price: " + quote.getLatestPrice());
+        StockData stockData = data.get(quote.getSymbol());
         if(stockData == null){
             stockData = new StockData();
             stockData.setLastQuote(quote);
@@ -28,7 +29,7 @@ public class QuoteRepository {
             stockData.setLastQuote(quote);
             stockData.setPreviousQuote(lastQuote);
         }
-        data.put(quote.getStockName(), stockData);
+        data.put(quote.getSymbol(), stockData);
     }
 
 

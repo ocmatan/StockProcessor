@@ -15,9 +15,11 @@ public class InjestService {
     private StockFeedProvider stockFeedProvider;
 
     public void injestAndTrackQuotes(List<String> stocks){
+        System.out.println("Injest & track quotes start for: " + stocks);
         for(String stock : stocks){
             Quote quote = stockFeedProvider.getQuote(stock);
-                quoteRepository.saveQuote(quote);
+            System.out.println("Quote received for : " + quote.getSymbol() + ", with price: " + quote.getLatestPrice());
+            quoteRepository.saveQuote(quote);
         }
     }
 

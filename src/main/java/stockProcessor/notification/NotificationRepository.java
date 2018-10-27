@@ -11,6 +11,7 @@ public class NotificationRepository {
     List<Notification> notificationsList = new LinkedList<>();
 
     public void add(List<Notification> notifications){
+        System.out.println("New notifications are added to notification repository");
         notificationsList.addAll(notifications);
     }
 
