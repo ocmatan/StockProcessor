@@ -2,6 +2,7 @@ package stockProcessor.injest;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,7 +11,7 @@ public class QuoteRepository {
     private Map<String, StockData> data;
 
     public QuoteRepository(){
-        this.data = new HashMap<>();
+        this.data = Collections.synchronizedMap(new HashMap<>());
     }
 
     public Map<String, StockData> getData() {
@@ -21,10 +22,6 @@ public class QuoteRepository {
         System.out.println("Saving quote in repository: " + quote.getSymbol() + ", with price: " + quote.getLatestPrice());
         StockData stockData = data.get(quote.getSymbol());
         if(stockData == null){
-
-            /////////////////////////////////////remove this/
-            quote.setLatestPrice(45);
-            ////////////////////////////////////remove this/
             stockData = new StockData();
             stockData.setLastQuote(quote);
             stockData.setPreviousQuote(quote);

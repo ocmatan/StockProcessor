@@ -2,13 +2,14 @@ package stockProcessor.notification;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 @Service
 public class NotificationRepository {
 
-    List<Notification> notificationsList = new LinkedList<>();
+    List<Notification> notificationsList =  Collections.synchronizedList(new LinkedList<>());
 
     public void add(List<Notification> notifications){
         if(!notifications.isEmpty()){
