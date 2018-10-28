@@ -3,5 +3,5 @@ server:
 app:
   stocks : AAPL, FB, TYO, EWT
   scheduler_interval_millis: 15000
-  notification_rule_percent : 0
+  notification_rule_percent : 0.05
   notification_rule_value: 0.1
