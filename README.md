@@ -26,7 +26,7 @@ StockProcessor
     [{"message":"AAPL : The stock is 0.05% higher relative to the last quote","timestamp":1540688765289},
     {"message":"EWT : The stock is 0.05% higher relative to the last quote","timestamp":1540688765289}]
   - API for available stock data in the system:
-    -request: 
+    - request: 
       curl http://localhost:8080/getStockData?symbol=TYO
     - response example: 
       {"lastQuote":{"symbol":"TYO","latestPrice":15.211},"previousQuote":{"symbol":"TYO","latestPrice":15.211}}
