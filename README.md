@@ -1,6 +1,5 @@
-o# StockProcessor
+StockProcessor
 
-  c:url http://localhost:8080/getStockData?symbol=TYO
 1. how to build the project:
    - you will need JDK 8 installed on your machine, configure JAVA_HOME in you environment variables
      response example: 
@@ -22,12 +21,12 @@ o# StockProcessor
   
 4. APIs:
  - notification request:
-   curl http://localhost:8080/getNotifications?clientId=madeUpClientId
-   notification response example:
+   - curl http://localhost:8080/getNotifications?clientId=madeUpClientId
+   - notification response example:
     [{"message":"AAPL : The stock is 0.05% higher relative to the last quote","timestamp":1540688765289},
     {"message":"EWT : The stock is 0.05% higher relative to the last quote","timestamp":1540688765289}]
-  - available stock data in the system:
-    request: 
+  - API for available stock data in the system:
+    -request: 
       curl http://localhost:8080/getStockData?symbol=TYO
-    response example: 
+    - response example: 
       {"lastQuote":{"symbol":"TYO","latestPrice":15.211},"previousQuote":{"symbol":"TYO","latestPrice":15.211}}
