@@ -13,8 +13,13 @@ public class StockFeedProvider {
 
 
     public Quote getQuote(String stock){
-        ResponseEntity<Quote> quoteResponseEntity = restTemplate.getForEntity(quoteUriPrefix + stock + "/quote", Quote.class);
-        return quoteResponseEntity.getBody();
+        try{
+            ResponseEntity<Quote> quoteResponseEntity = restTemplate.getForEntity(quoteUriPrefix + stock + "/quote", Quote.class);
+            return quoteResponseEntity.getBody();
+        }catch (Exception e){
+            System.out.println("Exception in quote query : " + e);
+            throw e;
+        }
     }
 
 

@@ -1,10 +1,12 @@
 package stockProcessor.notification;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import stockProcessor.injest.InjestService;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
@@ -22,11 +24,17 @@ public class NotficationService {
     @Autowired
     private NotificationRepository notificationRepository;
 
+    @Value("${app.stocks}")
+    private String[] stocksArray;
 
-    private List<String> stocks = Arrays.asList("AAPL", "FB");//TODO - config
+    private List<String> stocks;
 
+    @PostConstruct
+    public void setup(){
+        stocks = Arrays.asList(stocksArray);
+    }
 
-    @Scheduled(initialDelay=1000, fixedRate=15000)//every 15 seconds//TODO - config
+    @Scheduled(initialDelay=1000, fixedRateString="${app.scheduler_interval_millis}")
     public void processNotifications(){
         System.out.println("Scheduled notification process started at : " + LocalDateTime.now());
         injestService.injestAndTrackQuotes(stocks);

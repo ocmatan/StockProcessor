@@ -18,7 +18,17 @@ public class Notification {
         return timestamp;
     }
 
+    @Override
+    public String toString() {
+        return "Notification{" +
+                "message='" + message + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
+    }
+
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
+
+
 }

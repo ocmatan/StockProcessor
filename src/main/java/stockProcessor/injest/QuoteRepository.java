@@ -21,6 +21,10 @@ public class QuoteRepository {
         System.out.println("Saving quote in repository: " + quote.getSymbol() + ", with price: " + quote.getLatestPrice());
         StockData stockData = data.get(quote.getSymbol());
         if(stockData == null){
+
+            /////////////////////////////////////remove this/
+            quote.setLatestPrice(45);
+            ////////////////////////////////////remove this/
             stockData = new StockData();
             stockData.setLastQuote(quote);
             stockData.setPreviousQuote(quote);

@@ -11,11 +11,16 @@ public class NotificationRepository {
     List<Notification> notificationsList = new LinkedList<>();
 
     public void add(List<Notification> notifications){
-        System.out.println("New notifications are added to notification repository");
-        notificationsList.addAll(notifications);
+        if(!notifications.isEmpty()){
+            System.out.println("New notifications are added to notification repository");
+            notificationsList.addAll(notifications);
+        }
     }
 
     public List<Notification> getNotificationsFromTimeStamp(long timestamp){
+        if(timestamp == -1){
+            return notificationsList;//return all for the first request
+        }
         List<Notification> result = new LinkedList<>();
         notificationsList.forEach(notification -> {
             if(notification.getTimestamp() > timestamp){

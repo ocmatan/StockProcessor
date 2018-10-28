@@ -1,6 +1,7 @@
 package stockProcessor.notification;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import stockProcessor.injest.QuoteRepository;
 import stockProcessor.injest.StockData;
@@ -13,6 +14,12 @@ public class NotificationRuleProcessor {
 
     @Autowired
     private QuoteRepository quoteRepository;
+
+    @Value("${app.notification_rule_percent}")
+    private double notificationRulePercent;
+
+    @Value("${app.notification_rule_value}")
+    private double notificationRuleValue;
 
     public List<Notification> process(){
         System.out.println("Notification process started");
@@ -40,7 +47,11 @@ public class NotificationRuleProcessor {
                 continue;
             }
         }
-        System.out.println("Found a new notifications: " + result.toString());
+        if(!result.isEmpty()){
+            System.out.println("Found a new notifications: " + result.toString());
+        }else{
+            System.out.println("New notifications were not found");
+        }
         return result;
     }
 
@@ -48,7 +59,7 @@ public class NotificationRuleProcessor {
         RuleAnswer result = new RuleAnswer();
         result.shouldBeNotified = false;
         double diff = Math.abs(stockData.getLastQuote().getLatestPrice() - stockData.getPreviousQuote().getLatestPrice());
-        if(diff / stockData.getPreviousQuote().getLatestPrice() == 0.05){//TODO-config
+        if(diff / stockData.getPreviousQuote().getLatestPrice() == notificationRulePercent){
             result.shouldBeNotified = true;
             String higherOrLower = "higher";
             if(stockData.getLastQuote().getLatestPrice() < stockData.getPreviousQuote().getLatestPrice()){
@@ -63,7 +74,7 @@ public class NotificationRuleProcessor {
         RuleAnswer result = new RuleAnswer();
         result.shouldBeNotified = false;
         double diff = Math.abs(stockData.getLastQuote().getLatestPrice() - stockData.getPreviousQuote().getLatestPrice());
-        if(diff == 0.1){//TODO-config
+        if(diff == notificationRuleValue){
             result.shouldBeNotified = true;
             String higherOrLower = "higher";
             if(stockData.getLastQuote().getLatestPrice() < stockData.getPreviousQuote().getLatestPrice()){
